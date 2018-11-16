@@ -11,7 +11,7 @@ func main() {
 	machine.I2C0.Configure(machine.I2CConfig{})
 
 	// Init BlinkM
-	machine.I2C0.WriteRegister(0x09, '0', nil)
+	machine.I2C0.WriteRegister(0x09, 'o', nil)
 
 	version := []byte{0, 0}
 	machine.I2C0.ReadRegister(0x09, 'Z', version)

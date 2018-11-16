@@ -13,11 +13,11 @@ const (
 //
 // Many I2C-compatible devices are organized in terms of registers. This method
 // is a shortcut to easily write to such registers.
-func (i2c I2C) WriteRegister(address uint8, register uint8, data []byte) {
+func (i2c I2C) WriteRegister(address uint8, register uint8, data []byte) error {
 	buf := make([]uint8, len(data)+1)
 	buf[0] = register
 	copy(buf[1:], data)
-	i2c.Tx(uint16(address), buf, nil)
+	return i2c.Tx(uint16(address), buf, nil)
 }
 
 // ReadRegister transmits the register, restarts the connection as a read
@@ -25,6 +25,6 @@ func (i2c I2C) WriteRegister(address uint8, register uint8, data []byte) {
 //
 // Many I2C-compatible devices are organized in terms of registers. This method
 // is a shortcut to easily read such registers.
-func (i2c I2C) ReadRegister(address uint8, register uint8, data []byte) {
-	i2c.Tx(uint16(address), []byte{register}, data)
+func (i2c I2C) ReadRegister(address uint8, register uint8, data []byte) error {
+	return i2c.Tx(uint16(address), []byte{register}, data)
 }
